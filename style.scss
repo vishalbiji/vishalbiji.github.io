@@ -1,0 +1,770 @@
+$color-primary: #182850;
+$color-secondary: #182C61;
+$color-tertiary: #FF3366;
+$color-white: #fff;
+$color-black: #222;
+$color-grey: #f3f0f0;
+$color-grey-light: #e9e6e6;
+
+@mixin respond($bp) {
+    @if $bp == phone {
+        @media (max-width: 31.25em) {
+            @content;
+        }
+    }
+    @if $bp == tab-port {
+        @media (max-width: 60em) {
+            @content;
+        }
+    }
+    @if $bp == tab-port-small {
+        @media (max-width: 50em) {
+            @content;
+        }
+    }
+    @if $bp == tab-port-smaller {
+        @media (max-width: 47em) {
+            @content;
+        }
+    }
+    @if $bp == tab-land {
+        @media (max-width: 75em) {
+            @content;
+        }
+    }
+}
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+
+    @include respond(tab-land) {
+        font-size: 60%;
+    }
+
+    @include respond(tab-port) {
+        font-size: 53.13%;
+    }
+
+    @include respond(tab-port-smaller) {
+        font-size: 43.5%;
+    }
+
+    @include respond(phone) {
+        font-size: 38%;
+    }
+}
+
+body {
+    box-sizing: border-box;
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+}
+
+/************* utilities style's start *************/
+
+.container {
+    max-width: 95%;
+    margin: 0 auto;
+}
+
+main {
+    margin-left: 16vw;
+    @include respond(tab-port) {
+        margin-left: 0;
+        z-index: 1;
+        width: 100vw;
+    }
+    
+    section {
+        height: 100vh;
+
+        @include respond(tab-port) {
+            height: 100%;
+            padding: 2rem 0;
+        }
+    }
+}
+
+.heading-primary {
+    font-size: 5rem;
+    font-weight: 400;
+}
+
+.heading-secondary {
+    font-size: 3rem;
+    font-weight: 400;
+}
+
+.mb-1rem {
+    margin-bottom: 1rem;
+}
+
+.mb-2rem {
+    margin-bottom: 2rem;
+}
+
+.mt-2rem {
+    margin-top: 2rem;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.color-to-primary {
+    color: $color-primary;
+}
+
+.color-to-tertiary {
+    color: $color-tertiary;
+}
+
+/************* utilities style's end *************/
+
+/************* keyframe's *************/
+
+@keyframes infinite-up-down {
+    0%{
+        transform: translateY(-3rem);
+    }
+    100%{
+        transform: translateY(2rem);
+    }
+}
+
+/************* sidebar with naigation *************/
+
+.side-bar-close-toggler,.side-bar-menu-toggler {
+    font-size: 1.4rem;
+    border: none;
+    color: $color-white;
+    cursor: pointer;
+
+    ion-icon {
+        font-size: 1.8rem;
+        margin-right: .5rem;
+    }
+}
+
+.side-bar-close-toggler {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: $color-primary;
+    display: none;
+
+    @include respond(tab-port) {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.side-bar-menu-toggler {
+    display: none;
+    background-color: $color-tertiary;
+    border-radius: 5px;
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    z-index: 2;
+
+    @include respond(tab-port) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem 2rem;
+    }
+}
+
+.side-bar {
+    height: 100vh;
+    width: 16vw;
+    background-color: $color-primary;
+    color: $color-white;
+    position: fixed;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @include respond(tab-port) {
+        visibility: hidden;
+        width: 35vw;
+        z-index: 2;
+    }
+}
+
+.side-nav {
+    width: 100%;
+    list-style-type: none;
+    margin-top: 3.5rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &__item {
+        position: relative;
+
+        &--active {
+            background-color: $color-tertiary;
+        }
+    }
+
+    &__item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 100%;
+        background-color: $color-tertiary;
+        transform: scaleY(0);
+        transition: transform .2s,width .4s cubic-bezier(1,0,0,1) .2s;
+        z-index: -1;
+    }
+
+    &__item:hover::before,
+    &__item--active::before {
+        transform: scaleY(1);
+        width: 100%;
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+        padding: 1rem 3rem;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 1.6rem;
+        color: $color-white;
+        letter-spacing: 1.5px;
+
+        ion-icon{
+            font-size: 1.6rem;
+            margin-right: 1rem;
+            text-align: center;
+        }
+    }
+}
+
+.straight-line {
+    height: 10rem;
+    width: 2px;
+    background-color: $color-white;
+    margin-left: 2rem;
+
+    @include respond(tab-port)  {
+        display: none;
+    }
+}
+
+.social {
+    margin-bottom: 3rem;
+
+    &__follow-text {
+        text-align: center;
+        font-size: 1.4rem;
+    }
+    &__follow-icons {
+        display: flex;
+        justify-content: center;
+        
+        ion-icon {
+            color: $color-grey;
+            margin: 0 1rem;
+            transition: transform .2s;
+
+            &:hover {
+                color: $color-tertiary;
+                transform: translateY(4px);
+            }
+        }
+    }
+}
+
+/************* sidebar end *************/
+
+/************* section-about start *************/
+
+.about {
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+    @include respond(tab-port) {
+        height: 100vh;
+        padding: 0;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+    }
+
+    #particles-js{
+        width: 100%;
+        height: 100%;
+    }
+
+    canvas {
+        position:absolute;
+        top:0;
+        left: 0;
+        z-index: -1;
+    }
+
+    @include respond(phone) {
+        padding-bottom: 6rem;
+        align-items: space-between;
+    }
+
+    &__name {
+        color: $color-tertiary;
+        @include respond(tab-port) {
+            padding-top: 2rem;
+        }
+    }
+
+    &__intro-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &__image {
+            width: 22rem;
+            height: 22rem;
+            border-radius: 50%;
+            border: 2px solid #000;
+            margin: 2rem 0;
+            background-image: url('../img/user-img-min.jpg');
+            background-position: center;
+            background-size: cover;
+
+            @include respond(tab-port) {
+                width: 20rem;
+                height: 20rem;
+            }
+        }
+
+        .typewrite {
+            font-size: 5rem;
+            text-decoration: none;
+            color: $color-primary;
+        }
+    }
+    
+}
+
+.scroll-down {
+    text-decoration: none;
+    font-size: 3rem;
+    color: $color-black;
+    animation-name: infinite-up-down;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease;
+    animation-duration: 1s;
+    animation-direction: alternate;
+    padding-top: 2rem;
+}
+/************* section-about end *************/
+
+/************* section-education start *************/
+
+.education {
+    background-color: $color-grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 7rem;
+
+    @include respond(tab-port-small) {
+       
+    }
+
+    .container {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 5rem;
+        width: 100%;
+        height: 100%;
+
+        @include respond(phone) {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        & > *:not(:last-child) {
+            
+            @include respond(phone) {
+                margin-bottom: 3rem;
+            }
+        }
+    }
+
+    &__detail {
+        display: block;
+        font-size: 2rem;
+    }
+
+    &__list {
+        text-align: center;
+        background-color: rgba($color-white,.5);
+        border-top-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border-top-right-radius: 50px;
+        border-bottom-left-radius: 50px;
+        padding: 2rem;
+        width: 30%;
+        height: 30rem;
+        box-shadow: 0 1rem 3rem rgba($color: #000000, $alpha: 0.1);
+        transition: border-radius 1s,background-color .5s;
+
+        @include respond(phone) {
+            width: 90%;
+        }
+
+        & > *:not(:last-child) {
+            margin: 0 0 3rem 0;
+        }
+
+        &:hover {
+            border-radius: 5px;
+            background-color: $color-tertiary;
+            color: $color-white;
+        }
+    }
+
+    h3 {
+        font-size: 4rem;
+        font-weight: 300;
+    }
+
+    .para {
+        font-size: 2.5rem;
+        font-weight: 300;
+    }
+
+    &__location {
+        font-size: 2rem;
+    }
+}
+
+/************* section-education end *************/
+
+/************* skills *************/
+.skills {
+
+    .row {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 4rem;
+
+        @include respond(tab-port) {
+            flex-direction: column;
+            padding: 0rem 2rem;
+        }
+    }
+
+    &__primary-title {
+        padding: 4rem 0;
+        @include respond(tab-port) {
+            padding-top: 6rem;
+            padding-bottom: 2rem;
+        }
+    }
+    
+    .col-left,.col-right{flex:0 0 47%;}
+
+    &__name {
+        font-size: 2.2rem;
+        font-weight: 300;
+        color: $color-secondary;
+    }
+
+    &__level {
+        width: 90%;
+        height: 2rem;
+        background-color: $color-grey-light;
+        margin: 2rem 0;
+        border-radius: 5px;
+
+        &__inner {
+            background-color: $color-tertiary;
+            height: 100%;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1.3rem;
+            color: $color-white;
+            line-height: 2rem;
+
+            
+            &--1 {
+                width: 80%;
+            }
+            &--2 {
+                width: 75%;
+            }
+            &--3 {
+                width: 85%;
+            }
+            &--4 {
+                width: 60%;
+            }
+            &--5 {
+                width: 90%;
+            }
+            &--6 {
+                width: 95%;
+            }
+            &--7 {
+                width: 85%;
+            }
+            &--8 {
+                width: 50%;
+            }
+            &--9 {
+                width: 45%;
+            }
+            &--10 {
+                width: 70%;
+            }
+        }
+    }
+
+}
+/************* skills end *************/
+
+/************* portfolio start *************/
+
+.portfolio {
+    background-color: #f1f1f1;
+    padding: 5rem 0rem;
+
+    .container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center
+    }
+
+    .row {
+        display: flex;
+        flex-direction: column;
+        width: 95%;
+        height: 50rem;
+        overflow: hidden;
+
+        @include respond(tab-port-smaller) {
+            height: 100rem; 
+            align-items: center;
+
+            & > * {
+                margin-bottom: 2rem;
+            }
+        }
+    }
+
+    .col-left,.col-right {
+        flex-basis: 50%;
+        display: flex;
+
+        @include respond(tab-port-smaller) {
+            flex-basis: 100%;
+            flex-direction: column;
+        }
+    }
+
+    &__text {
+        width: 50%;
+        height: 100%;
+        list-style-type: none;
+        font-size: 1.8rem;
+        padding: 1.5rem; 
+        background-color: $color-white;
+
+        @include respond(tab-port-smaller) {
+            width: 100%;
+        }
+
+        li {
+            position: relative;
+            margin: 1rem 2rem;
+        }
+
+        li:first-child {
+            color: $color-primary;
+            font-size: 2.4rem;
+            text-transform: uppercase;
+        }
+
+    }
+
+    .col-left &__text {
+        li:not(:first-child)::before {
+            content: "";
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            display: block;
+            background-color: $color-tertiary;
+            position: absolute;
+            left: -1.5rem;
+            top: 1.2rem;
+        }
+    }
+
+    .col-left {
+        @include respond(tab-port-smaller) {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+    }
+
+    .col-right &__text {
+        text-align: right;
+
+        li:not(:first-child)::after {
+            content: "";
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            display: block;
+            background-color: $color-tertiary;
+            position: absolute;
+            right: -1.5rem;
+            top: 1.2rem;
+        }
+    }
+    &__img {
+        width: 50%;
+        height: 100%;
+        background-size: cover;
+
+        @include respond(tab-port-smaller) {
+            width: 100%;
+        }
+
+        &--1 {
+            background-image: url('../img/portfolio-pic-1.jpg');
+        }
+        &--2 {
+            background-image: url('../img/portfolio-pic-2.jpg');
+        }
+    }
+}
+
+/************* portfolio end *************/
+
+/************* contact start *************/
+
+.contact {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 0rem;
+
+    h2 {padding-bottom: 5rem;}
+    
+    &__form {
+        width: 70%;
+        margin: 0 auto;
+    }
+
+    .input__form {
+        display: flex;
+        justify-content: space-between;
+
+        @include respond(tab-port) {
+            flex-direction: column;
+        }
+    }
+
+    .form__group {
+        flex-basis: 48%;
+        display: flex;
+        flex-direction: column;
+
+        @include respond(tab-port) {
+            margin: 1rem;
+        }
+
+        & > * {margin: 2rem o;}
+
+        label {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        input {
+            font-size: 1.4rem;
+            border: 2px solid $color-grey-light;
+            padding: 1rem;
+            border-radius: 5px;
+        }
+    }
+
+    .form__description {
+        border: 2px solid $color-grey-light;
+        margin-top: 2rem;
+        padding: 1rem;
+        font-size: 1.6rem;
+        width: 100%;
+        border-radius: 5px;
+        font-family: 'Jost', sans-serif;
+    }
+
+    .form-btn {
+        display: inline-block;
+        padding:1rem 1.5rem;
+        background-color: $color-tertiary;
+        color: $color-white;
+        margin-top: 1.5rem;
+        border: none;
+        border-radius: 3px;
+        font-size: 1.4rem;
+        text-decoration: none;
+        transition: transform .2s;
+    }
+
+    .form-btn:hover {
+        background-color: rgba($color-tertiary,.9);
+    }
+
+    .form-btn:focus {
+        outline: none;
+        transform: translateY(3px);
+    }
+
+}
+
+/************* contact end *************/
+
+/************* footer start *************/
+
+footer {
+    background-color: $color-grey-light;
+
+    p{
+        color: $color-primary;
+        padding: 3rem 0;
+        text-align: center;
+        font-size: 2rem;
+    }
+}
+/************* footer end *************/
